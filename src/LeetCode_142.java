@@ -1,6 +1,9 @@
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Objects;
 
-public class Helpers {
+public class LeetCode_142 {
+
     public static class ListNode {
         int val;
         ListNode next;
@@ -18,6 +21,8 @@ public class Helpers {
         }
 
         public static ListNode fromArray(int[] arr) {
+            if (arr.length == 0)
+                return null;
             ListNode node = new ListNode(arr[0]);
             ListNode last = node;
             for (int i = 1; i < arr.length; i++) {
@@ -61,7 +66,16 @@ public class Helpers {
             }
             builder.append("]");
             return builder.toString();
-
         }
     }
+    public ListNode detectCycle(ListNode head) {
+        HashSet<ListNode> set = new HashSet<>();
+        ListNode node = head;
+        while (node != null && !set.contains(node)) {
+            set.add(node);
+            node = node.next;
+        }
+        return node;
+    }
+
 }

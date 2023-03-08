@@ -1,6 +1,9 @@
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 import java.util.Objects;
 
-public class Helpers {
+public class LeetCode_876 {
     public static class ListNode {
         int val;
         ListNode next;
@@ -18,6 +21,8 @@ public class Helpers {
         }
 
         public static ListNode fromArray(int[] arr) {
+            if (arr.length == 0)
+                return null;
             ListNode node = new ListNode(arr[0]);
             ListNode last = node;
             for (int i = 1; i < arr.length; i++) {
@@ -52,16 +57,42 @@ public class Helpers {
 
         @Override
         public String toString() {
-            ListNode node = this;
-            StringBuilder builder = new StringBuilder();
-            builder.append("[");
-            while (node != null) {
-                builder.append(node.val).append(" ,");
-                node = node.next;
-            }
-            builder.append("]");
-            return builder.toString();
-
+                        ListNode node = this;
+                        StringBuilder builder = new StringBuilder();
+                        builder.append("[");
+                        while (node != null) {
+                            builder.append(node.val).append(" ,");
+                            node = node.next;
+                        }
+                        builder.append("]");
+                        return builder.toString();
         }
+    }
+
+    public ListNode middleNode(ListNode head) {
+        if(head == null)
+            return null;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next;
+            fast = fast.next;
+        }
+        return slow;
+    }
+
+    @Test
+    public void test_1() {
+        int[] list = {1, 2, 3, 4, 5};
+        int[] ans = {3, 4, 5};
+        Assertions.assertEquals(ListNode.fromArray(ans), middleNode(ListNode.fromArray(list)));
+    }
+
+    @Test
+    public void test_2() {
+        int[] list = {1, 2, 3, 4, 5, 6};
+        int[] ans = {4, 5, 6};
+        Assertions.assertEquals(ListNode.fromArray(ans), middleNode(ListNode.fromArray(list)));
     }
 }
