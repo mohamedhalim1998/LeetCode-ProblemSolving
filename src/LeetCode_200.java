@@ -1,0 +1,110 @@
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Objects;
+
+public class LeetCode_200 {
+    public int numIslands(char[][] grid) {
+        HashSet<Pair> visited = new HashSet<>();
+        int count = 0;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                if (grid[i][j] == '1' && !visited.contains(new Pair(j, i))) {
+                    bfs(new Pair(j, i), visited, grid);
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    private void bfs(Pair s, HashSet<Pair> visited, char[][] grid) {
+        LinkedList<Pair> queue = new LinkedList<>();
+        queue.add(s);
+        while (!queue.isEmpty()) {
+            Pair curr = queue.poll();
+            if(visited.contains(curr))
+                continue;
+            visited.add(curr);
+            Pair[] pairs = {curr.left(), curr.right(grid[0].length), curr.up(), curr.down(grid.length)};
+            for (Pair pair : pairs) {
+                if (pair != null && !visited.contains(pair) && grid[pair.r][pair.c] == '1') {
+                    queue.add(pair);
+                }
+            }
+
+        }
+    }
+
+    static class Pair {
+        int c, r;
+
+        public Pair(int c, int r) {
+            this.c = c;
+            this.r = r;
+        }
+
+        public Pair right(int m) {
+            if (c + 1 < m)
+                return new Pair(c + 1, r);
+            return null;
+        }
+
+        public Pair up() {
+            if (r - 1 >= 0)
+                return new Pair(c, r - 1);
+            return null;
+        }
+
+        public Pair down(int n) {
+            if (r + 1 < n)
+                return new Pair(c, r + 1);
+            return null;
+        }
+
+        public Pair left() {
+            if (c - 1 >= 0)
+                return new Pair(c - 1, r);
+            return null;
+        }
+
+        public boolean sameColor(int[][] image, Pair other) {
+            return image[r][c] == image[other.r][other.c];
+        }
+
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Pair pair = (Pair) o;
+            return c == pair.c && r == pair.r;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(c, r);
+        }
+
+        @Override
+        public String toString() {
+            return "Pair{" +
+                    "c=" + c +
+                    ", r=" + r +
+                    '}';
+        }
+    }
+
+    @Test
+    public void test_1() {
+        char[][] grid = {
+                {'1', '1', '1', '1', '0'},
+                {'1', '1', '0', '1', '0'},
+                {'1', '1', '0', '0', '0'},
+                {'0', '0', '0', '0', '0'}
+        };
+        Assertions.assertEquals(1, numIslands(grid));
+    }
+}
