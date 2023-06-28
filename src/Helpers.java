@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 
 public class Helpers {
@@ -110,6 +113,17 @@ public class Helpers {
             }
         }
         return ans;
+    }
+
+    static HashMap<Integer, ArrayList<Integer>> arrToFreqMap(int[] arr) {
+        HashMap<Integer, ArrayList<Integer>> map = new HashMap<>();
+
+        for (int i = 0; i < arr.length; i++) {
+            ArrayList<Integer> list = map.getOrDefault(arr[i], new ArrayList<>());
+            list.add(i);
+            map.put(arr[i], list);
+        }
+        return map;
     }
 
 }
