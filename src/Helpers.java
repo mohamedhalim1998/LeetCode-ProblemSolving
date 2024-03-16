@@ -67,7 +67,24 @@ public class Helpers {
 
         }
     }
+    public class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
 
+        TreeNode() {
+        }
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
     static int greaterSearch(int[] arr, int target) {
         int start = 0, end = arr.length - 1;
         int ans = -1;
