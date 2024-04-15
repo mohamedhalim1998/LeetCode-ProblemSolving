@@ -1,24 +1,11 @@
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 public class LeetCode_52 {
     public int totalNQueens(int n) {
         var ans = new HashSet<HashSet<Pair>>();
-//        boolean[][] used = new boolean[n][n];
-//        for (int i = 0; i < n; i++) {
-//            for (int j = 0; j < n; j++) {
-//                if(!used[i][j]) {
-//                    var set = new HashSet<Pair>();
-//                    set.add(Pair.of(i, j));
-//                    used[i][j] = true;
-//
-//                }
-//            }
-//        }
         totalNQueens(n, n, new HashSet<>(), ans, 0);
         return ans.size();
     }
