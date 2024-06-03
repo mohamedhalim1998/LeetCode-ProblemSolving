@@ -1,17 +1,18 @@
+package helper;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Objects;
 
 public class Helpers {
     public static class ListNode {
-        int val;
-        ListNode next;
+        public int val;
+        public ListNode next;
 
-        ListNode() {
+        public ListNode() {
         }
 
-        ListNode(int val) {
+        public ListNode(int val) {
             this.val = val;
         }
 
