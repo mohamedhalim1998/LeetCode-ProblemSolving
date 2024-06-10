@@ -2,6 +2,7 @@ package helper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 
 public class Helpers {
@@ -68,7 +69,7 @@ public class Helpers {
 
         }
     }
-    public class TreeNode {
+    public static class TreeNode {
         public int val;
         public TreeNode left;
         public TreeNode right;
@@ -85,6 +86,43 @@ public class Helpers {
             this.left = left;
             this.right = right;
         }
+        public static TreeNode fromArray(Integer[] array) {
+            if (array.length == 0) {
+                return null;
+            }
+
+            TreeNode root = new TreeNode(array[0]);
+            List<TreeNode> nodes = new ArrayList<>();
+            nodes.add(root);
+            int index = 1;
+            boolean left = true;
+
+            while (index < array.length) {
+                TreeNode current = nodes.get(0);
+
+                if (left) {
+                    if (array[index] != null) {
+                        TreeNode newNode = new TreeNode(array[index]);
+                        current.left = newNode;
+                        nodes.add(newNode);
+                    }
+                    left = false;
+                } else {
+                    if (array[index] != null) {
+                        TreeNode newNode = new TreeNode(array[index]);
+                        current.right = newNode;
+                        nodes.add(newNode);
+                    }
+                    nodes.remove(0);
+                    left = true;
+                }
+                index++;
+            }
+
+            return root;
+        }
+
+
     }
     static int greaterSearch(int[] arr, int target) {
         int start = 0, end = arr.length - 1;
